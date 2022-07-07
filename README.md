@@ -6,7 +6,7 @@
 
 -----
 
-### <p align="center">💀 Brute 💀</p>
+### <p align="center">☠️ Brute ☠️</p>
 
 <br><br>
 <p align="center">

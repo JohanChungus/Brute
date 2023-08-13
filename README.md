@@ -1,13 +1,9 @@
+# Brutalize: The Ultimate UDP Flood Attack Tool
+
+> **Disclaimer**: The Brutalize tool is developed for educational and research purposes only. Do not use this software without proper authorization. Always act within the boundaries of laws and ethical standards.
 <p align="center">
   <img src="banner.png" alt="Banner" width="20%">
 </p>
-
-
-# Brutalize: The Ultimate UDP Flood Attack Tool
-
-
-> **Disclaimer**: The Brutalize tool is developed for educational and research purposes only. Do not use this software without proper authorization. Always act within the boundaries of laws and ethical standards.
-
 ## Introduction
 
 Brutalize is a sophisticated UDP flood attack tool crafted with precision and efficiency in mind. It inundates target systems with overwhelming traffic, leveraging the raw power of User Datagram Protocol (UDP) to bring even the most resilient systems to their knees. However, with great power comes great responsibility. This tool is not a toy; it's a hardcore instrument of digital dominion.

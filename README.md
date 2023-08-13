@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="banner.png" alt="Banner">
+</p>
+
+
 # Brutalize: The Ultimate UDP Flood Attack Tool
 
 
